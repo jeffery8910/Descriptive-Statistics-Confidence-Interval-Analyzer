@@ -1,0 +1,5 @@
+{
+  "name": "Descriptive Statistics & Confidence Interval Analyzer",
+  "description": "Upload your CSV or Excel file to quickly get a table of descriptive statistics and confidence intervals for the mean. Supports .csv, .xls, and .xlsx files.",
+  "requestFramePermissions": []
+}
