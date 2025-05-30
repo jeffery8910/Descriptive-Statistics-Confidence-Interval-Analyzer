@@ -2,12 +2,11 @@ name: Deploy Vite + React App to GitHub Pages
 
 on:
   push:
-    branches:
-      - main            # main 分支有變更就部署
-  workflow_dispatch:     # 手動觸發也可以
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write      # ← 這行改成 write
   pages: write
   id-token: write
 
@@ -16,25 +15,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 取得程式碼
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. 設定 Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3. 安裝相依套件
       - name: Install dependencies
-        run: npm ci
+        run: npm ci          # or npm ci (若已有 package-lock.json)
 
-      # 4. Build
       - name: Build with Vite
-        run: npm run build
+        run: npm run build        # 產生 dist/
 
-      # 5. Deploy
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
