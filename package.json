@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://jeffery8910.github.io/Descriptive-Statistics-Confidence-Interval-Analyzer",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
