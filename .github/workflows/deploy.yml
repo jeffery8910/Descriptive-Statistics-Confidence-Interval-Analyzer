@@ -1,9 +1,9 @@
-name: 部署 React 到 GitHub Pages
+name: Deploy Vite + React App to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # 或你想要部署的分支
+      - main
 
 permissions:
   contents: read
@@ -15,22 +15,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 取得程式碼
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 使用 Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # 根據你的專案版本
+          node-version: '20'
 
-      - name: 安裝依賴
+      - name: Install dependencies
         run: npm install
 
-      - name: Build 靜態網頁
+      - name: Build with Vite
         run: npm run build
 
-      - name: 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # Create React App 預設
+          publish_dir: ./dist
