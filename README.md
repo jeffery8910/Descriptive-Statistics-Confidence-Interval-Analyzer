@@ -1,4 +1,4 @@
-# Descriptive Statistics & Confidence Interval Analyzer | 描述性統計與信賴區間分析器
+# [Descriptive Statistics & Confidence Interval Analyzer | 描述性統計與信賴區間分析器](https://jeffery8910.github.io/Descriptive-Statistics-Confidence-Interval-Analyzer/)
 
 一個互動式的網頁應用程式，允許使用者上傳 CSV 或 Excel 檔案，以生成描述性統計數據和平均數的信賴區間。本應用程式提供了一個使用者友好的介面，以便快速分析資料集，並以「牛皮紙」風格主題和雙語（英文/繁體中文）支援呈現。
 
