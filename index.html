@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descriptive Statistics &amp; Confidence Interval Analyzer | 描述性統計與信賴區間分析器</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --kraft-bg-light: #EAE0D5; /* Lighter, softer kraft paper */
+      --kraft-text-light: #4A3B31; /* Darker, warm brown for text */
+      --kraft-accent-light: #795548; /* Main accent - Muted brown, like old ink */
+      --kraft-accent-hover-light: #8D6E63;
+      --kraft-card-bg-light: #F5F0E8; /* Slightly lighter than base for cards */
+      --kraft-border-light: #BFB3A9;
+      --kraft-muted-text-light: #6D4C41;
+      --kraft-button-bg-light: #D7CCC8;
+      --kraft-button-text-light: #4A3B31;
+      --kraft-button-hover-bg-light: #BCABA2;
+      --kraft-error-bg-light: #c9a7a7;
+      --kraft-error-text-light: #5d3838;
+
+
+      --kraft-bg-dark: #3E2723; /* Dark brown, like old leather */
+      --kraft-text-dark: #D7CCC8; /* Light, warm gray/beige for text */
+      --kraft-accent-dark: #BCAAA4; /* Main accent for dark - Lighter sepia/brown */
+      --kraft-accent-hover-dark: #A1887F;
+      --kraft-card-bg-dark: #4E342E; /* Slightly lighter than dark base for cards */
+      --kraft-border-dark: #5D4037;
+      --kraft-muted-text-dark: #A1887F;
+      --kraft-button-bg-dark: #5D4037;
+      --kraft-button-text-dark: #D7CCC8;
+      --kraft-button-hover-bg-dark: #6D4C41;
+      --kraft-error-bg-dark: #7d5a5a;
+      --kraft-error-text-dark: #e0c0c0;
+    }
+
+    body {
+      font-family: 'EB Garamond', "DFKai-SB", "標楷體", "Microsoft JhengHei", "微軟正黑體", serif, sans-serif;
+      background-color: var(--kraft-bg-light);
+      color: var(--kraft-text-light);
+      background-image: linear-gradient(to bottom, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.03) 100%);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dark body {
+      background-color: var(--kraft-bg-dark);
+      color: var(--kraft-text-dark);
+      background-image: linear-gradient(to bottom, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 10%, rgba(255,255,255,0) 90%, rgba(255,255,255,0.03) 100%);
+    }
+    
+    h1, h2, button, label, input[type="file"], .font-special {
+      font-family: 'Special Elite', "DFKai-SB", "標楷體", "Microsoft JhengHei", "微軟正黑體", cursive, sans-serif;
+    }
+
+    tailwind.config = {
+      darkMode: 'class', 
+      theme: {
+        extend: {
+          colors: {
+            'kraft-bg-light': 'var(--kraft-bg-light)',
+            'kraft-text-light': 'var(--kraft-text-light)',
+            'kraft-accent-light': 'var(--kraft-accent-light)',
+            'kraft-accent-hover-light': 'var(--kraft-accent-hover-light)',
+            'kraft-card-bg-light': 'var(--kraft-card-bg-light)',
+            'kraft-border-light': 'var(--kraft-border-light)',
+            'kraft-muted-text-light': 'var(--kraft-muted-text-light)',
+            'kraft-button-bg-light': 'var(--kraft-button-bg-light)',
+            'kraft-button-text-light': 'var(--kraft-button-text-light)',
+            'kraft-button-hover-bg-light': 'var(--kraft-button-hover-bg-light)',
+            'kraft-error-bg-light': 'var(--kraft-error-bg-light)',
+            'kraft-error-text-light': 'var(--kraft-error-text-light)',
+
+            'kraft-bg-dark': 'var(--kraft-bg-dark)',
+            'kraft-text-dark': 'var(--kraft-text-dark)',
+            'kraft-accent-dark': 'var(--kraft-accent-dark)',
+            'kraft-accent-hover-dark': 'var(--kraft-accent-hover-dark)',
+            'kraft-card-bg-dark': 'var(--kraft-card-bg-dark)',
+            'kraft-border-dark': 'var(--kraft-border-dark)',
+            'kraft-muted-text-dark': 'var(--kraft-muted-text-dark)',
+            'kraft-button-bg-dark': 'var(--kraft-button-bg-dark)',
+            'kraft-button-text-dark': 'var(--kraft-button-text-dark)',
+            'kraft-button-hover-bg-dark': 'var(--kraft-button-hover-bg-dark)',
+            'kraft-error-bg-dark': 'var(--kraft-error-bg-dark)',
+            'kraft-error-text-dark': 'var(--kraft-error-text-dark)',
+          },
+          fontFamily: {
+            sans: ['EB Garamond', "DFKai-SB", "標楷體", "Microsoft JhengHei", "微軟正黑體", 'serif', 'sans-serif'],
+            serif: ['EB Garamond', "DFKai-SB", "標楷體", "Microsoft JhengHei", "微軟正黑體", 'serif', 'sans-serif'],
+            special: ['Special Elite', "DFKai-SB", "標楷體", "Microsoft JhengHei", "微軟正黑體", 'cursive', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </style>
+
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/Descriptive-Statistics-Confidence-Interval-Analyzer/assets/index-CgDNcZlt.js"></script>
+</head>
+<body class="transition-colors duration-300">
+  <div id="root"></div>
+</body>
+</html><link rel="stylesheet" href="index.css">
