@@ -27,7 +27,7 @@ jobs:
 
       # 3. 安裝依賴
       - name: Install dependencies
-        run: npm ci             # 或用 npm install / yarn / pnpm
+        run: npm install
 
       # 4. 建置 Vite 專案
       - name: Build with Vite
