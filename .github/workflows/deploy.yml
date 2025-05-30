@@ -1,0 +1,36 @@
+name: 部署 React 到 GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 或你想要部署的分支
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 取得程式碼
+        uses: actions/checkout@v4
+
+      - name: 使用 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # 根據你的專案版本
+
+      - name: 安裝依賴
+        run: npm install
+
+      - name: Build 靜態網頁
+        run: npm run build
+
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Create React App 預設
